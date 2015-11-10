@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-lg-12">
+        <h3 class="page-header">POR FAVOR SELECCIONE EL PRODUCTO QUE DESEA COMPRAR</h3>
+    </div>
+    <!-- PANEL COMPRA -->
+    <div class="col-md-2">
+      <h4>MERCHANT</h4>
+      <div class="list-group">
+        <a href="#" class="list-group-item" ng-click="cat.mostrarProductosCategoria(11)">AERIA GAMES</a>
+        <a href="#" class="list-group-item" ng-click="cat.mostrarProductosCategoria(13)">AXESO5</a>
+        <a href="#" class="list-group-item" ng-click="cat.mostrarProductosCategoria(15)">CLUB PENGUIN</a>
+      </div>
+    </div>
+    <!-- end PANEL COMPRA -->
+    
+    <!-- PANEL COMPRA -->
+    <div class="col-md-8">
+      <h4>PRODUCTOS</h4>
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-12" ng-repeat="producto in cat.productos | filter: cat.filtroCat">
+          <div class="thumbnail">
+            <img class="img-responsive center-block" ng-src="{{producto.logo}}" alt="" >
+            <div class="caption text-center">
+              <h6><span ng-bind="producto.nombre"></span></h6>
+              <h6><span ng-bind="producto.iva"></span></h6>
+              <h6>$<span ng-bind="producto.precio"></span></h6>
+              <a ng-href="#" class="btn btn-primary btn-block btn-sm"  data-toggle="modal" data-target="#m_dialog" ng-click="cat.agregarAlCarrito(producto)">COMPRAR</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end PANEL COMPRA -->
+  </div>
+</div>
+
+<div id="m_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 id="modalTitulo" class="modal-title">Producto añadido al carrito de compra!</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div id="cuerpoModal">
+              <h4 class="text-center">Que deseas hacer?.</h4>
+              <div id="resModal"></div>
+              <div class="text-center">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Seguir comprando</button>
+                  <a class="btn btn-success" style="margin-left:15px;" ng-click="cat.finalizarCompra()">Finalizar compra</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

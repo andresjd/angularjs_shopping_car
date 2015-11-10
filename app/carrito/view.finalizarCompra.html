@@ -1,0 +1,188 @@
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <!-- Wizard container -->   
+        <div class="wizard-container" style="display: none;"> 
+            <form id="order-form" name="order-form" action="" method="post">
+                <!--  You can switch "ct-wizard-orange" with one of the next bright colors: "ct-wizard-blue", "ct-wizard-green", "ct-wizard-orange", "ct-wizard-red" -->
+                <div class="card wizard-card ct-wizard-green" id="wizardCarrito">
+                    <div class="wizard-header">
+                        <h3> PROCESO DE COMPRA </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#paso1" data-toggle="tab">PRODUCTOS EN EL CARRITO</a></li>
+                        <li><a href="#paso2" data-toggle="tab">MEDIO DE PAGO</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="paso1">
+                            <div class="row">
+                                <div class="col-md-1 col-md-offset-1">
+                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <h4><strong>DESCRIPCIÓN</strong></h4> 
+                                </div>
+                                <div class="col-md-2">
+                                    <h4><strong>CANTIDAD</strong></h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4><strong></strong></h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4><strong>SUBTOTAL</strong></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <hr class="col-md-10 col-md-offset-1">
+                            </div>
+                            <div class="row" ng-repeat="item in finCompra.listaDeCarrito">
+                                <div class="col-md-1 col-md-offset-1">
+                                    <img class="img-responsive center-block" ng-src="{{item.logo}}" alt="" >
+                                </div>
+                                <div class="col-md-3">
+                                    <span ng-bind="item.nombre"></span> 
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-btn">
+                                          <button type="button" class="btn btn-default btn-number" data-type="minus" ng-click="finCompra.restarCantidad(item.lid, 1)">
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                          </button>
+                                        </span>
+                                        <!-- <input type="text" name="quant[AZE]" class="form-control input-number" value="{{item.cantidad}}" min="0" max="100"> -->
+                                        <span class="form-control input-number" ng-bind="item.cantidad"></span>
+                                        <span class="input-group-btn">
+                                          <button type="button" class="btn btn-success btn-number" ng-click="finCompra.sumarCantidad(item.lid, 1)">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                          </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <span ng-bind="item.iva"></span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span ng-bind="item.precio * item.cantidad | currency:'$':0"></span>
+                                    <span class="pull-right"><a ng-href="javascript:void(0);" ng-click="finCompra.removerItemCarrito($index)" class="text-danger"><i class="fa fa-remove fa-fw"></i></a></span>
+                                </div>
+                                <hr class="col-md-10 col-md-offset-1">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-offset-6 col-md-6">
+                                    <h3>TOTAL A PAGAR <span ng-bind="finCompra.importeCarrito | currency:'$':0"></span></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="paso2">
+                            <div id="resPedido">
+                                <h4 class="info-text"><b>Selecciona el medio de pago</b></h4>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <h6>EFECTIVO</h6>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:1px auto 0; width: 100px;" src="https://www.pinvalidda.com/opencms/export/system/modules/com.entretenimientoenlawebcolombia/resources/img/REDES/logo_efecty.png">
+                                                </div>
+                                            </div>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:1px auto 0; width: 140px;" src="https://www.pinvalidda.com/opencms/export/system/modules/com.entretenimientoenlawebcolombia/resources/img/REDES/logo_colpatria.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h6>TRANSFERENCIA BANCARIA</h6>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:1px auto 0; width: 80px;" src="https://s3.amazonaws.com/payvalidaweb/img/logos_aliados/pse.png">
+                                                </div>
+                                            </div>
+                                            <h6>DEPÓSITO BANCARIO</h6>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:1px auto 0; width: 100px;" src="https://s3.amazonaws.com/payvalidaweb/img/logos_aliados/bancolombia.png">
+                                                </div>
+                                            </div>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:1px auto 0; width: 100px;" src="https://s3.amazonaws.com/payvalidaweb/img/logos_aliados/avvillas.png">
+                                                </div>
+                                            </div>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:1px auto 0; width: 100px;" src="https://s3.amazonaws.com/payvalidaweb/img/logos_aliados/occidente.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h6>TARJETA DE CRÉDITO</h6>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:2px auto 0; width: 80px;" src="https://s3.amazonaws.com/payvalidaweb/img/logos_aliados/visa.png">
+                                                </div>
+                                            </div>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:2px auto 0; width: 80px;" src="https://s3.amazonaws.com/payvalidaweb/img/logos_aliados/mastercard.png">
+                                                </div>
+                                            </div>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:2px auto 0; width: 80px;" src="https://s3.amazonaws.com/payvalidaweb/img/logos_aliados/amex.png">
+                                                </div>
+                                            </div>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:2px auto 0; width: 80px;" src="https://s3.amazonaws.com/payvalidaweb/img/logos_aliados/exito.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h6>E-WALLET</h6>
+                                            <div class="choice" data-toggle="wizard-radio" ng-click="finCompra.setMetodoDePago('tarjeta')">
+                                                <input type="radio" name="radioMetodoPago" value="1">
+                                                <div class="icon text-center">
+                                                    <img class="img-responsive" style="margin:4px auto 0;" src="https://s3.amazonaws.com/payvalidaweb/img/logo_payvalida_pagos.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="row" ng-show="finCompra.msgAlertas">
+                            <div class="col-md-12" style="margin-top:15px;">
+                                <div ng-class="finCompra.msgClassAlertas" class="alert"><span ng-bind="finCompra.msgAlertas"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wizard-footer" ng-hide="finCompra.ocultarWizardFooter" ng-cloak>
+                        <div class="pull-right">
+                            <input type='button' class='btn btn-next btn-flat btn-success btn-wd btn-sm' name='next' id="next" value='Siguiente' />
+                            <input type='button' class='btn btn-finish btn-flat btn-success btn-wd btn-sm' name='finish' id="finish" value='Aceptar' ng-click="finCompra.finalizarCarrito()"/>
+
+                        </div>
+                        <div class="pull-left">
+                            <input type='button' class='btn btn-previous btn-flat btn-default btn-wd btn-sm' name='previous' value='Atrás' />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>	
+                </div>
+            </form>
+        </div> <!-- wizard container -->
+    </div>
+</div>
+
+<script type="text/javascript" src="js/wizardFinalizarCompra.js"></script>
